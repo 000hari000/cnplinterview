@@ -1,0 +1,3 @@
+union select `j`.`journalId` AS `id`,'journal' AS `tableName`,case when `j`.`payType` = 1 then 'Journal Cash' when `j`.`payType` = 2 then 'Journal Check' when `j`.`payType` = 3 then 'Journal rtgs' when `j`.`payType` = 4 then 'Journal QR' when `j`.`payType` = 5 then 'Journal UPI' else 'Other' end AS `type`,'credit' AS `amountType`,`j`.`employeeAmount` AS `amount`,concat('Un Pay Receipt','-',`j`.`journalCode`) AS `label`,NULL AS `chequeNo`,`j`.`journalDate` AS `depositDate`,`j`.`clearDate` AS `clearDate`,NULL AS `returnDate`,`j`.`branchId` AS `branchId`,`b_d`.`bankType` AS `bankType` from (`journal` `j` left join `branch_detail` `b_d` on(`b_d`.`bankDetailId` = `j`.`bankId`)) where `j`.`status` = '0' and `j`.`journalType` = '9' group by `j`.`journalId`
+
+//
